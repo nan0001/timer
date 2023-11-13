@@ -1,3 +1,5 @@
+@use './styles/variables.scss' as v;
+
 :host {
   flex-grow: 1;
   display: flex;
@@ -6,4 +8,5 @@
 
 main {
   flex-grow: 1;
+  padding: v.$padding-vertical v.$padding-horizontal;
 }

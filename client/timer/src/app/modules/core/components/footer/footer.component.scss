@@ -5,8 +5,5 @@
   padding: v.$padding-vertical v.$padding-horizontal;
   justify-content: space-between;
   font-size: v.$fs-small;
-}
-
-.year{
-  color: v.$text-color-secondary;
+  border-top: 1px solid v.$border-color;
 }

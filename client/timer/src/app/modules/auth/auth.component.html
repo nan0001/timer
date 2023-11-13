@@ -1,0 +1,45 @@
+<nz-card [nzTitle]="pageHeader" class="login-form">
+  <form nz-form [formGroup]="authForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please enter your username!">
+        <nz-input-group nzPrefixIcon="user">
+          <input
+            type="text"
+            nz-input
+            formControlName="userName"
+            placeholder="Username" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzErrorTip]="errorTpl">
+        <nz-input-group nzPrefixIcon="lock">
+          <input
+            type="password"
+            nz-input
+            formControlName="password"
+            placeholder="Password" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <button nz-button class="login-form-button" [nzType]="'primary'">
+      Log in
+    </button>
+  </form>
+</nz-card>
+
+<ng-template #pageHeader>
+  <nz-page-header
+    (nzBack)="goToMainPage()"
+    nzBackIcon
+    nzTitle="Sign in"></nz-page-header>
+</ng-template>
+
+<ng-template #errorTpl let-control>
+  <ng-container *ngIf="control.hasError('required')">
+    Please enter your password!
+  </ng-container>
+  <ng-container *ngIf="control.hasError('minlength')">
+    Password length must be at least 8 chars!
+  </ng-container>
+</ng-template>

@@ -10,4 +10,8 @@ export class AuthService {
   public logout(): void {
     this.user$.next(null);
   }
+
+  public login(user: { name: string; password: string }): void {
+    this.user$.next(user.name);
+  }
 }
