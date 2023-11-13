@@ -1,0 +1,27 @@
+:host{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  & ::ng-deep{
+    .ant-card-head-title{
+      padding: 0;
+    }
+
+    .ant-card-head{
+      padding: 0;
+    }
+  }
+}
+
+.login-form{
+  width: 60%;
+  max-width: 400px;
+  min-width: 300px;
+}
+
+.login-form-button{
+  width: 100%;
+}

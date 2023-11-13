@@ -1,0 +1,7 @@
+:host {
+  display: flex;
+  padding: 1rem 1.25rem;
+  justify-content: flex-end;
+  gap: 1rem;
+  align-items: center;
+}/*# sourceMappingURL=header.component.css.map */

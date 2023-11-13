@@ -1,20 +1,18 @@
-@use './app/styles/variables.scss' as v;
-
 * {
   box-sizing: border-box;
 }
 
-html,body {
+html, body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   margin: 0;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-p{
+p {
   margin: 0;
-}
+}/*# sourceMappingURL=styles.css.map */
