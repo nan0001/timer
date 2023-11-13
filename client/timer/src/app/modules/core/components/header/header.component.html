@@ -1,0 +1,12 @@
+<ng-container *ngIf="user$ | async as userName; else login">
+  <p>{{ userName }}</p>
+  <button nz-button nzType="link" nzShape="circle" (click)="logout()">
+    <span nz-icon nzType="logout" nzTheme="outline"></span>
+  </button>
+</ng-container>
+
+<ng-template #login>
+  <button nz-button nzType="link" nzShape="circle" routerLink="auth">
+    <span nz-icon nzType="login" nzTheme="outline"></span>
+  </button>
+</ng-template>

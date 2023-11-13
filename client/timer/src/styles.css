@@ -1,10 +1,8 @@
-@use './app/styles/variables.scss' as v;
-
 * {
   box-sizing: border-box;
 }
 
-html,body {
+html, body {
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -12,10 +10,10 @@ html,body {
   margin: 0;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-p{
+p {
   margin: 0;
-}
+}/*# sourceMappingURL=styles.css.map */

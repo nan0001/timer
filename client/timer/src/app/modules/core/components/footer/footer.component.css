@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  padding: 1rem 1.25rem;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+
+.year {
+  color: rgba(0, 0, 0, 0.5);
+}/*# sourceMappingURL=footer.component.css.map */
