@@ -7,6 +7,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzProgressModule } from 'ng-zorro-antd/progress';
 
 @NgModule({
   declarations: [],
@@ -19,6 +20,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     NzFormModule,
     NzPageHeaderModule,
     NzInputModule,
+    NzProgressModule,
   ],
 })
 export class AntDesignModule {}

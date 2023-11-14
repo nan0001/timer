@@ -1,0 +1,36 @@
+<nz-card class="timer-card">
+  <nz-progress
+    [nzPercent]="progressPercent"
+    nzType="circle"
+    [nzFormat]="timer"></nz-progress>
+  <div class="timer-btns">
+    <button
+      nz-button
+      nzType="primary"
+      nzShape="circle"
+      (click)="toggleTimer()"
+      [disabled]="status === TIMER_STATUS.Started">
+      <span nz-icon nzType="caret-right" nzTheme="outline"></span>
+    </button>
+    <button
+      nz-button
+      nzType="default"
+      nzShape="circle"
+      (click)="toggleTimer()"
+      [disabled]="status !== TIMER_STATUS.Started">
+      <span nz-icon nzType="pause" nzTheme="outline"></span>
+    </button>
+    <button
+      nz-button
+      nzType="default"
+      nzShape="circle"
+      (click)="restartTimer()"
+      [disabled]="status === TIMER_STATUS.Clean">
+      <span nz-icon nzType="sync" nzTheme="outline"></span>
+    </button>
+  </div>
+</nz-card>
+
+<ng-template #timer>
+  <countdown #cd [config]="config" />
+</ng-template>

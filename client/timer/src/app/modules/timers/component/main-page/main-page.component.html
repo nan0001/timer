@@ -1,0 +1,44 @@
+<!-- <nz-card *ngFor="let timer of [timerS, timerM, timerL]" class="timer-card">
+  <nz-progress
+    [nzWidth]="200"
+    [nzPercent]="(100 / timer.total) * timer.current"
+    nzType="circle"
+    [nzFormat]="timer.format"></nz-progress>
+  <div class="timer-btns">
+    <button
+      nz-button
+      nzType="primary"
+      nzShape="circle"
+      (click)="startTimer(timer)">
+      <span nz-icon nzType="caret-right" nzTheme="outline"></span>
+    </button>
+    <button nz-button nzType="default" nzShape="circle">
+      <span nz-icon nzType="pause" nzTheme="outline"></span>
+    </button>
+  </div>
+</nz-card> -->
+
+<!-- <nz-card *ngFor="let timer of [timerS]" class="timer-card">
+  <countdown
+    #cd
+    [config]="timer.config"
+    (event)="handleEvent($event, cd)"
+    class="timer" />
+  <nz-progress
+    [nzPercent]="timer.percent"
+    nzType="circle"
+    [nzFormat]="timer.progressFormat"></nz-progress>
+  <div class="timer-btns">
+    <button
+      nz-button
+      nzType="primary"
+      nzShape="circle"
+      (click)="timer.isActive ? cd.resume() : cd.begin()">
+      <span nz-icon nzType="caret-right" nzTheme="outline"></span>
+    </button>
+    <button nz-button nzType="default" nzShape="circle" (click)="cd.pause()">
+      <span nz-icon nzType="pause" nzTheme="outline"></span>
+    </button>
+  </div>
+</nz-card> -->
+<app-timer-item [minutesNumber]="1"></app-timer-item>
