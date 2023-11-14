@@ -8,6 +8,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 @NgModule({
   declarations: [],
@@ -21,6 +22,7 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
     NzPageHeaderModule,
     NzInputModule,
     NzProgressModule,
+    NzNotificationModule,
   ],
 })
 export class AntDesignModule {}

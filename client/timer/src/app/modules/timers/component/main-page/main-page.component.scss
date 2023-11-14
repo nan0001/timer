@@ -4,39 +4,7 @@
   display: flex;
   flex-grow: 1;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: v.$padding-vertical v.$padding-horizontal;
 }
-
-// :host{
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   gap: 2rem;
-//   padding: v.$padding-vertical v.$padding-horizontal;
-// }
-
-// .timer-card {
-//   width: 30%;
-
-//   &::ng-deep{
-//     .ant-card-body{
-//       display: flex;
-//       flex-direction: column;
-//       gap: 1rem;
-//       align-items: center;
-//       justify-content: center;
-//     }
-//   }
-// }
-
-// .timer{
-//   display: none;
-// }
-
-// .timer-btns{
-//   display: flex;
-//   gap: 1rem;
-//   align-items: center;
-// }
 

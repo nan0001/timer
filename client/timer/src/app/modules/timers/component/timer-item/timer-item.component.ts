@@ -6,8 +6,13 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { CountdownComponent, CountdownConfig } from 'ngx-countdown';
+import {
+  CountdownComponent,
+  CountdownConfig,
+  CountdownEvent,
+} from 'ngx-countdown';
 import { TIMER_STATUS } from '../../models/timer.model';
+import { NotificationService } from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-timer-item',
@@ -27,7 +32,10 @@ export class TimerItemComponent implements OnInit {
 
   @ViewChild('cd', { static: false }) private countdown!: CountdownComponent;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private notificationService: NotificationService
+  ) {}
 
   public ngOnInit(): void {
     this.totalTime = this.minutesNumber * 60;
@@ -59,6 +67,16 @@ export class TimerItemComponent implements OnInit {
   public restartTimer(): void {
     this.status = TIMER_STATUS.Clean;
     this.countdown.restart();
+  }
+
+  public onFinish(event: CountdownEvent): void {
+    if (event.action === 'done') {
+      this.status = TIMER_STATUS.Finished;
+      this.notificationService.notify(
+        `Time's up!`,
+        `${this.minutesNumber}-minute countdown has finished!`
+      );
+    }
   }
 
   private getProgressPercent(text: string): string {

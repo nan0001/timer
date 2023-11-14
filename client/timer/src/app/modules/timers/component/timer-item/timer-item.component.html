@@ -9,7 +9,9 @@
       nzType="primary"
       nzShape="circle"
       (click)="toggleTimer()"
-      [disabled]="status === TIMER_STATUS.Started">
+      [disabled]="
+        status === TIMER_STATUS.Started || status === TIMER_STATUS.Finished
+      ">
       <span nz-icon nzType="caret-right" nzTheme="outline"></span>
     </button>
     <button
@@ -32,5 +34,5 @@
 </nz-card>
 
 <ng-template #timer>
-  <countdown #cd [config]="config" />
+  <countdown #cd [config]="config" (event)="onFinish($event)" />
 </ng-template>
