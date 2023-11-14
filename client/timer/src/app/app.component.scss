@@ -9,4 +9,7 @@
 main {
   flex-grow: 1;
   padding: v.$padding-vertical v.$padding-horizontal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
