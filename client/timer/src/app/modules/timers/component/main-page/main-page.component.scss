@@ -6,5 +6,16 @@
   align-items: center;
   justify-content: space-between;
   padding: v.$padding-vertical v.$padding-horizontal;
+  position: relative;
+  height: 100%;
 }
 
+.nav-btn{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.icon{
+  font-size: 1.5rem;
+}

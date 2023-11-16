@@ -1,0 +1,24 @@
+<nz-card [nzTitle]="pageHeader" class="charts">
+  <div class="statistics-container">
+    <app-line-chart></app-line-chart>
+    <div class="statistic">
+      <h4>Total usage</h4>
+      <nz-statistic
+        [nzValue]="timerSTotalUse"
+        [nzTitle]="'1-minute timer'"></nz-statistic>
+      <nz-statistic
+        [nzValue]="timerMTotalUse"
+        [nzTitle]="'5-minute timer'"></nz-statistic>
+      <nz-statistic
+        [nzValue]="timerLTotalUse!"
+        [nzTitle]="'25-minute timer'"></nz-statistic>
+    </div>
+  </div>
+</nz-card>
+
+<ng-template #pageHeader>
+  <nz-page-header
+    (nzBack)="goToMainPage()"
+    nzBackIcon
+    nzTitle="Timers usage"></nz-page-header>
+</ng-template>
