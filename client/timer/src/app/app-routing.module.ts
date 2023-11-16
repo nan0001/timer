@@ -13,6 +13,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/auth/auth.module').then(m => m.AuthModule),
   },
+  {
+    path: 'charts',
+    loadChildren: () =>
+      import('./modules/charts/charts.module').then(m => m.ChartsModule),
+  },
 ];
 
 @NgModule({
