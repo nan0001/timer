@@ -1,73 +1,100 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+## Authorization
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+### Login
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+`[POST] http://localhost:3000/auth/login`
 
-## Description
+Method returns access token, that should be placed in Authorization header for further requests.
+Access token expires in 7 days.
+Place username and password in request body as follows:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+`{"username": "test", "password": "1234"}`
+!!! Content-type: application/json
 
-## Installation
+Example response: 
 
-```bash
-$ npm install
-```
+`{
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTVlMTRhZDNiMzk2ODE3MjQ5Y2Q1MzEiLCJ1c2VybmFtZSI6Im5hc3R5YSIsImlhdCI6MTcwMTMzOTk2NCwiZXhwIjoxNzAxOTQ0NzY0fQ.fjfHUG0kLoTK5x6qOskwUAlfB-3VJsSvFLeUZFLVRVk"
+}`
 
-## Running the app
+### Sign up
 
-```bash
-# development
-$ npm run start
+`[POST] http://localhost:3000/auth/signup`
 
-# watch mode
-$ npm run start:dev
+!!! Content-type: application/json
 
-# production mode
-$ npm run start:prod
-```
+Request body and response are the same as in login request.
 
-## Test
 
-```bash
-# unit tests
-$ npm run test
+## Timers 
 
-# e2e tests
-$ npm run test:e2e
+To request timers you must have access token in Authorization header in format 'Bearer [your token]'.
+Example of header:
 
-# test coverage
-$ npm run test:cov
-```
+`
+Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTVlMTRhZDNiMzk2ODE3MjQ5Y2Q1MzEiLCJ1c2VybmFtZSI6Im5hc3R5YSIsImlhdCI6MTcwMDY2NzE3NywiZXhwIjoxNzAxMjcxOTc3fQ.1ZAe6gwtZy-PjE-zac8wQIyn2ecMFD6hj80P5XyHyHg'
+`
 
-## Support
+### All timers
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+`[GET] http://localhost:3000/timers`
 
-## Stay in touch
+Returns all timers data (1-minute = s, 5-minute = m, 25-minute = l). Arrays contain dates in number format.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Example response:
 
-## License
+`
+{
+    "s": [
+        1701342077936
+    ],
+    "m": [
+        1701350193266,
+        1701351148634
+    ],
+    "l": [
+        1701351148634
+    ]
+}
+`
 
-Nest is [MIT licensed](LICENSE).
+### Timer data by type
+
+`[GET] http://localhost:3000/timers/[timer_type]`
+
+timer_type = s | m | l
+
+Returns an array of dates for selected timer.
+
+Example response: 
+`
+[
+    1701342077936
+]
+`
+
+### Add date for a timer
+
+`[POST] http://localhost:3000/timers/[timer_type]`
+
+You can add date for a selected type of timer. Place date in request body as follows:
+
+`{"date": 1701351148634}`
+!!! Content-type: application/json
+
+Returns update result from typeOrm.
+Example response: 
+
+`
+{
+    "generatedMaps": [],
+    "raw": {
+        "acknowledged": true,
+        "modifiedCount": 1,
+        "upsertedId": null,
+        "upsertedCount": 0,
+        "matchedCount": 1
+    },
+    "affected": 1
+}
+`
