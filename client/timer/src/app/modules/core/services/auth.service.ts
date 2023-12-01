@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { TokenInterface } from '../models/auth.model';
 import { SERVER_LINK } from '../constants/server-link.constant';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,14 +12,20 @@ export class AuthService {
   public accessToken = localStorage.getItem('token') || '';
   public username = localStorage.getItem('username') || '';
   public user$ = new BehaviorSubject<null | string>(this.username);
+
   private authLink = `${SERVER_LINK}auth/`;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router
+  ) {}
 
   public logout(): void {
-    this.user$.next(null);
     this.accessToken = '';
     this.username = '';
+    this.user$.next(null);
+    this.router.navigate(['auth']);
+    localStorage.clear();
   }
 
   public login(

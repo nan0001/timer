@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TIMER_MINUTES } from '../../constants/timer-minutes.constant';
 
 @Component({
   selector: 'app-main-page',
@@ -8,6 +9,8 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainPageComponent {
+  public timerMinutes = TIMER_MINUTES;
+
   constructor(private router: Router) {}
 
   public goToCharts(): void {

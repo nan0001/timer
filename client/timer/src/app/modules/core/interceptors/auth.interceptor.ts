@@ -18,11 +18,12 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     if (this.authService.accessToken && request.url.startsWith(SERVER_LINK)) {
-      const newReq = request.clone();
-      newReq.headers.append(
-        'Authorization',
-        `Bearer ${this.authService.accessToken}`
-      );
+      const newReq = request.clone({
+        headers: request.headers.append(
+          'Authorization',
+          `Bearer ${this.authService.accessToken}`
+        ),
+      });
 
       return next.handle(newReq);
     }

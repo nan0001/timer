@@ -9,9 +9,11 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TimersModule } from './modules/timers/timers.module';
+import { PostInterceptor } from './modules/core/interceptors/post.interceptor';
+import { AuthInterceptor } from './modules/core/interceptors/auth.interceptor';
 
 registerLocaleData(en);
 
@@ -26,7 +28,11 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     TimersModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [
+    { provide: NZ_I18N, useValue: en_US },
+    { provide: HTTP_INTERCEPTORS, useClass: PostInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
