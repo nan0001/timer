@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NotificationService } from './modules/core/services/notification.service';
+import { AuthService } from './modules/core/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,17 @@ import { NotificationService } from './modules/core/services/notification.servic
 export class AppComponent implements OnInit {
   public title = 'timer';
 
-  constructor(private notificationService: NotificationService) {}
+  constructor(
+    private notificationService: NotificationService,
+    private authService: AuthService
+  ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.notificationService.checkNotificationPermission();
+  }
+
+  @HostListener('window:beforeunload')
+  beforeUnloadHandler() {
+    this.authService.saveCredsInLocalStorage();
   }
 }

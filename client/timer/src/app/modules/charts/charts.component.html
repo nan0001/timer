@@ -1,16 +1,19 @@
 <nz-card [nzTitle]="pageHeader" class="charts">
-  <div class="statistics-container">
-    <app-line-chart></app-line-chart>
+  <div class="statistics-container" *ngIf="timers$ | async as timers">
+    <app-line-chart
+      [timerS]="timers.s"
+      [timerM]="timers.m"
+      [timerL]="timers.l"></app-line-chart>
     <div class="statistic">
       <h4>Total usage</h4>
       <nz-statistic
-        [nzValue]="timerSTotalUse"
+        [nzValue]="timers.s.length"
         [nzTitle]="'1-minute timer'"></nz-statistic>
       <nz-statistic
-        [nzValue]="timerMTotalUse"
+        [nzValue]="timers.m.length"
         [nzTitle]="'5-minute timer'"></nz-statistic>
       <nz-statistic
-        [nzValue]="timerLTotalUse!"
+        [nzValue]="timers.l.length"
         [nzTitle]="'25-minute timer'"></nz-statistic>
     </div>
   </div>

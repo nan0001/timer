@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
 
 @Component({
@@ -7,31 +12,16 @@ import { ChartConfiguration } from 'chart.js';
   styleUrls: ['./line-chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LineChartComponent {
-  //TODO: via input
-  private timerSSeries = [65, 59, 80, 81, 56, 55, 40];
-  private timerMSeries = [28, 48, 40, 19, 86, 27, 90];
-  private timerLSeries = [1, 0, 1, 2, 0, 0, 1];
+export class LineChartComponent implements OnInit {
+  @Input() timerS: number[] = [];
+  @Input() timerM: number[] = [];
+  @Input() timerL: number[] = [];
 
-  private labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012']; //dates on x axis
+  private currentDate = Date.now();
+  private startDate = this.currentDate - 30 * 24 * 60 * 60 * 1000; // -30 days
+  private labels = this.createDatesLabels(this.startDate, this.currentDate); //dates on x axis
 
-  public chartData: ChartConfiguration<'line'>['data'] = {
-    labels: this.labels,
-    datasets: [
-      {
-        label: '1-minute timer',
-        data: this.timerSSeries,
-      },
-      {
-        label: '5-minute timer',
-        data: this.timerMSeries,
-      },
-      {
-        label: '25-minute timer',
-        data: this.timerLSeries,
-      },
-    ],
-  };
+  public chartData!: ChartConfiguration<'line'>['data'];
 
   public chartOptions: ChartConfiguration<'line'>['options'] = {
     responsive: true,
@@ -45,5 +35,60 @@ export class LineChartComponent {
         position: 'bottom',
       },
     },
+    scales: {
+      y: {
+        ticks: {
+          stepSize: 1,
+        },
+        type: 'linear',
+        beginAtZero: true,
+      },
+    },
   };
+
+  public ngOnInit(): void {
+    this.chartData = {
+      labels: this.labels,
+      datasets: [
+        {
+          label: '1-minute timer',
+          data: this.getDataArray(this.timerS),
+        },
+        {
+          label: '5-minute timer',
+          data: this.getDataArray(this.timerM),
+        },
+        {
+          label: '25-minute timer',
+          data: this.getDataArray(this.timerL),
+        },
+      ],
+    };
+  }
+
+  private createDatesLabels(start: number, current: number): string[] {
+    const datesArr: number[] = [];
+
+    for (let i = start; i <= current; i += 24 * 60 * 60 * 1000) {
+      datesArr.push(i);
+    }
+
+    return this.getStringDatesArray(datesArr);
+  }
+
+  private getStringDatesArray(array: number[]): string[] {
+    return array.map(val => {
+      const date = new Date(val);
+
+      return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    });
+  }
+
+  private getDataArray(timerArray: number[]): number[] {
+    const stringArray = this.getStringDatesArray(timerArray);
+
+    return this.labels.map(val => {
+      return stringArray.filter(date => date === val).length;
+    });
+  }
 }

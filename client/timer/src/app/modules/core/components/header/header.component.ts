@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,13 +10,9 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   public user$ = this.authService.user$;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService) {}
 
   public logout(): void {
     this.authService.logout();
-    this.router.navigate(['auth']);
   }
 }

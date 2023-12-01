@@ -13,6 +13,9 @@ import {
 } from 'ngx-countdown';
 import { TIMER_STATUS } from '../../models/timer.model';
 import { NotificationService } from '../../../core/services/notification.service';
+import { TimerService } from '../../../core/services/timer.service';
+import { TimersSizes } from '../../../core/models/timer-response.model';
+import { TIMER_MINUTES } from '../../constants/timer-minutes.constant';
 
 @Component({
   selector: 'app-timer-item',
@@ -21,7 +24,7 @@ import { NotificationService } from '../../../core/services/notification.service
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimerItemComponent implements OnInit {
-  @Input({ required: true }) minutesNumber = 1;
+  @Input({ required: true }) minutesNumber = TIMER_MINUTES.s;
 
   public TIMER_STATUS = TIMER_STATUS;
   public progressPercent = 0;
@@ -34,7 +37,8 @@ export class TimerItemComponent implements OnInit {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private timerService: TimerService
   ) {}
 
   public ngOnInit(): void {
@@ -52,6 +56,7 @@ export class TimerItemComponent implements OnInit {
       case TIMER_STATUS.Clean:
         this.countdown.begin();
         this.status = TIMER_STATUS.Started;
+        this.sendTimerData();
         break;
       case TIMER_STATUS.Started:
         this.countdown.pause();
@@ -88,5 +93,13 @@ export class TimerItemComponent implements OnInit {
     this.cdr.detectChanges();
 
     return text;
+  }
+
+  private sendTimerData(): void {
+    const timerSize: TimersSizes = TIMER_MINUTES[
+      this.minutesNumber
+    ] as TimersSizes;
+
+    this.timerService.addTimerDate(timerSize);
   }
 }

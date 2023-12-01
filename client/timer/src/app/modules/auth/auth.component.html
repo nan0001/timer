@@ -1,5 +1,9 @@
 <nz-card [nzTitle]="pageHeader" class="login-form">
-  <form nz-form [formGroup]="authForm" (ngSubmit)="submitForm()">
+  <form
+    nz-form
+    [formGroup]="authForm"
+    (ngSubmit)="submitForm()"
+    (input)="clearCredError()">
     <nz-form-item>
       <nz-form-control nzErrorTip="Please enter your username!">
         <nz-input-group nzPrefixIcon="user">
@@ -22,6 +26,13 @@
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
+    <p nz-typography>If you are new you can create an account</p>
+    <!-- eslint-disable-next-line
+    @angular-eslint/template/label-has-associated-control -->
+    <label nz-checkbox formControlName="isNew">Create account</label>
+    <p nz-typography nzType="danger" *ngIf="credentialsError$ | async as err">
+      {{ err }}
+    </p>
     <button nz-button class="login-form-button" [nzType]="'primary'">
       Log in
     </button>
