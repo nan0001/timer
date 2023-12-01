@@ -1,5 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { TimerService } from '../core/services/timer.service';
+import { TimersResponseInterface } from '../core/models/timer-response.model';
 
 @Component({
   selector: 'app-charts',
@@ -7,16 +10,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./charts.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChartsComponent {
-  private timerSSeries = [65, 59, 80, 81, 56, 55, 40];
-  private timerMSeries = [28, 48, 40, 19, 86, 27, 90];
-  private timerLSeries = [1, 0, 1, 2, 0, 0, 1];
+export class ChartsComponent implements OnInit {
+  public timers$!: Observable<TimersResponseInterface>;
 
-  public timerSTotalUse = this.timerSSeries.reduce((acc, val) => acc + val);
-  public timerMTotalUse = this.timerMSeries.reduce((acc, val) => acc + val);
-  public timerLTotalUse = this.timerLSeries.reduce((acc, val) => acc + val);
+  constructor(
+    private router: Router,
+    private timerService: TimerService
+  ) {}
 
-  constructor(private router: Router) {}
+  public ngOnInit(): void {
+    this.timers$ = this.timerService.getAllTimers();
+  }
 
   public goToMainPage(): void {
     this.router.navigate(['']);
