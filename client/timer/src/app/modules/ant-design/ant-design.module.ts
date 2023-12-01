@@ -10,6 +10,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 @NgModule({
   declarations: [],
@@ -25,6 +26,7 @@ import { NzStatisticModule } from 'ng-zorro-antd/statistic';
     NzProgressModule,
     NzNotificationModule,
     NzStatisticModule,
+    NzCheckboxModule,
   ],
 })
 export class AntDesignModule {}
